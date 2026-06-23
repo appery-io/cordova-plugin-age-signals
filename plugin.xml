@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-age-signals"
+        version="0.5.0">
+
+    <name>Age Signals</name>
+    <description>Cordova plugin for the Google Play Age Signals API (Android) and DeclaredAgeRange (iOS).</description>
+    <license>MIT</license>
+    <keywords>cordova,age,signals,verification,play,declared-age-range</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=9.0.0" />
+        <engine name="cordova-android" version=">=9.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+    </engines>
+
+    <js-module src="www/AgeSignals.js" name="AgeSignals">
+        <clobbers target="AgeSignals" />
+    </js-module>
+
+    <preference name="ANDROID_PLAY_AGE_SIGNALS_VERSION" default="0.0.3" />
+
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <preference name="android-minSdkVersion" value="24" />
+        </config-file>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="AgeSignals">
+                <param name="android-package" value="io.capawesome.cordova.plugins.agesignals.AgeSignalsPlugin" />
+            </feature>
+        </config-file>
+
+        <framework src="com.google.android.play:age-signals:$ANDROID_PLAY_AGE_SIGNALS_VERSION" />
+
+        <source-file src="src/android/AgeSignalsPlugin.java" target-dir="src/io/capawesome/cordova/plugins/agesignals" />
+        <source-file src="src/android/AgeSignals.java" target-dir="src/io/capawesome/cordova/plugins/agesignals" />
+        <source-file src="src/android/CustomException.java" target-dir="src/io/capawesome/cordova/plugins/agesignals" />
+        <source-file src="src/android/CustomExceptions.java" target-dir="src/io/capawesome/cordova/plugins/agesignals" />
+        <source-file src="src/android/UserStatus.java" target-dir="src/io/capawesome/cordova/plugins/agesignals/enums" />
+        <source-file src="src/android/CheckAgeSignalsResult.java" target-dir="src/io/capawesome/cordova/plugins/agesignals/results" />
+        <source-file src="src/android/SetUseFakeManagerOptions.java" target-dir="src/io/capawesome/cordova/plugins/agesignals/options" />
+        <source-file src="src/android/SetNextAgeSignalsResultOptions.java" target-dir="src/io/capawesome/cordova/plugins/agesignals/options" />
+        <source-file src="src/android/SetNextAgeSignalsExceptionOptions.java" target-dir="src/io/capawesome/cordova/plugins/agesignals/options" />
+    </platform>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="AgeSignals">
+                <param name="ios-package" value="AgeSignalsPlugin" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Entitlements.plist" parent="/*">
+            <key>com.apple.developer.declared-age-range</key>
+            <true/>
+        </config-file>
+
+        <source-file src="src/ios/AgeSignalsPlugin.swift" />
+        <source-file src="src/ios/AgeSignals.swift" />
+        <source-file src="src/ios/CheckAgeSignalsOptions.swift" />
+        <source-file src="src/ios/CheckAgeSignalsResult.swift" />
+        <source-file src="src/ios/CheckEligibilityResult.swift" />
+        <source-file src="src/ios/UserStatus.swift" />
+        <source-file src="src/ios/AgeRangeDeclaration.swift" />
+        <source-file src="src/ios/CustomError.swift" />
+    </platform>
+</plugin>

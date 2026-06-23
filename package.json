@@ -1,0 +1,23 @@
+{
+  "name": "cordova-plugin-age-signals",
+  "version": "0.4.0",
+  "description": "Cordova plugin for the Google Play Age Signals API (Android) and DeclaredAgeRange (iOS).",
+  "cordova": {
+    "id": "cordova-plugin-age-signals",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "age",
+    "signals",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Appery.io",
+  "license": "MIT",
+  "types": "types/index.d.ts"
+}

@@ -108,23 +108,23 @@ window.AgeSignals
 Basic example:
 
 ```js
-async function checkAgeSignals() {
-  const result = await AgeSignals.checkAgeSignals();
+
+  const result = await window.AgeSignals.checkAgeSignals();
 
   console.log('User status:', result.userStatus);
   console.log('Age lower:', result.ageLower);
   console.log('Age upper:', result.ageUpper);
   console.log('Age range declaration:', result.ageRangeDeclaration);
-}
+
 ```
 
 iOS eligibility check:
 
 ```js
-async function checkEligibility() {
-  const result = await AgeSignals.checkEligibility();
+
+  const result = await window.AgeSignals.checkEligibility();
   console.log('Is eligible:', result.isEligible);
-}
+
 ```
 
 `checkEligibility()` is only available on iOS.
@@ -277,9 +277,9 @@ The Android implementation supports `FakeAgeSignalsManager`.
 Example: simulate a parent approval denied response:
 
 ```js
-await AgeSignals.setUseFakeManager({ useFake: true });
+await window.AgeSignals.setUseFakeManager({ useFake: true });
 
-await AgeSignals.setNextAgeSignalsResult({
+await window.AgeSignals.setNextAgeSignalsResult({
   userStatus: 'SUPERVISED_APPROVAL_DENIED',
   ageLower: 13,
   ageUpper: 17,
@@ -287,16 +287,16 @@ await AgeSignals.setNextAgeSignalsResult({
   installId: 'fake_install_id'
 });
 
-const result = await AgeSignals.checkAgeSignals();
+const result = await window.AgeSignals.checkAgeSignals();
 console.log(result.userStatus);
 ```
 
 Example: simulate pending approval:
 
 ```js
-await AgeSignals.setUseFakeManager({ useFake: true });
+await window.AgeSignals.setUseFakeManager({ useFake: true });
 
-await AgeSignals.setNextAgeSignalsResult({
+await window.AgeSignals.setNextAgeSignalsResult({
   userStatus: 'SUPERVISED_APPROVAL_PENDING',
   ageLower: 13,
   ageUpper: 17,
@@ -304,14 +304,14 @@ await AgeSignals.setNextAgeSignalsResult({
   installId: 'fake_install_id'
 });
 
-const result = await AgeSignals.checkAgeSignals();
+const result = await window.AgeSignals.checkAgeSignals();
 console.log(result.userStatus);
 ```
 
 Disable fake manager:
 
 ```js
-await AgeSignals.setUseFakeManager({ useFake: false });
+await window.AgeSignals.setUseFakeManager({ useFake: false });
 ```
 
 The fake manager methods are Android-only. On iOS they return an error because the platform does not provide this testing API.
@@ -328,8 +328,8 @@ const blockingMessages = {
     'Your parent or guardian has not allowed you to use this app. Please contact them if you think this is a mistake.'
 };
 
-async function enforceAgeSignals() {
-  const result = await AgeSignals.checkAgeSignals();
+
+  const result = await window.AgeSignals.checkAgeSignals();
   const message = blockingMessages[result.userStatus];
 
   if (!message) {
@@ -339,7 +339,7 @@ async function enforceAgeSignals() {
   // Show a non-dismissible modal or alert here.
   console.log(message);
   return true;
-}
+
 ```
 
 ## Platform Availability Summary
@@ -380,14 +380,14 @@ If the error appears inside `platforms/ios/.../Plugins/cordova-plugin-age-signal
 Make sure fake mode is enabled before setting the next result:
 
 ```js
-await AgeSignals.setUseFakeManager({ useFake: true });
-await AgeSignals.setNextAgeSignalsResult({ userStatus: 'SUPERVISED_APPROVAL_DENIED' });
+await window.AgeSignals.setUseFakeManager({ useFake: true });
+await window.AgeSignals.setNextAgeSignalsResult({ userStatus: 'SUPERVISED_APPROVAL_DENIED' });
 ```
 
 Then call:
 
 ```js
-await AgeSignals.checkAgeSignals();
+await window.AgeSignals.checkAgeSignals();
 ```
 
 ## License
